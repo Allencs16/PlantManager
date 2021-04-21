@@ -6,7 +6,9 @@ import {
     Text,
     TextInput,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    TouchableWithoutFeedback,
+    Keyboard
 } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
@@ -41,39 +43,41 @@ export function UserIdentification(){
 
   return(
     <SafeAreaView style={Style.container}>
+      <StatusBar backgroundColor="auto"/>
       <KeyboardAvoidingView 
         style={Style.container}
         behavior={ Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <StatusBar backgroundColor="auto"/>
-        <View style={Style.content}>
-          <View style={Style.form}>
-            <View style={Style.header}>
-              <Text style={Style.emoji}>
-                {isFilled ? '😊' : '😃'}
-              </Text>
-              <Text style={Style.title}>
-                Como podemos {'\n'} chamar você
-              </Text>
-            </View>
-            <TextInput 
-              style={[
-                Style.input,
-                (isFocused || isFilled) && { borderColor: colors.green }
-              ]} 
-              placeholder="Digite seu nome"
-              onBlur={handleInputBlur}
-              onFocus={handleInputFocus}
-              onChangeText={handleInputChange}
-            />
-            <View style={Style.footer}>
-              <Button 
-                title='Avançar'
-                onPress={handleSubmit}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={Style.content}>
+            <View style={Style.form}>
+              <View style={Style.header}>
+                <Text style={Style.emoji}>
+                  {isFilled ? '😊' : '😃'}
+                </Text>
+                <Text style={Style.title}>
+                  Como podemos {'\n'} chamar você
+                </Text>
+              </View>
+              <TextInput 
+                style={[
+                  Style.input,
+                  (isFocused || isFilled) && { borderColor: colors.green }
+                ]} 
+                placeholder="Digite seu nome"
+                onBlur={handleInputBlur}
+                onFocus={handleInputFocus}
+                onChangeText={handleInputChange}
               />
+              <View style={Style.footer}>
+                <Button 
+                  title='Avançar'
+                  onPress={handleSubmit}
+                />
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
