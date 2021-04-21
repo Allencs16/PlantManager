@@ -16,8 +16,8 @@ export function Confirmation(){
 
   const navigation = useNavigation();
 
-	function handleStart(){
-		navigation.navigate('User');
+	function handleMoveOn(){
+		navigation.navigate('PlantSelect');
 	}
 
   return(
@@ -37,6 +37,7 @@ export function Confirmation(){
           <View style={Style.footer}>
             <Button 
             title="Começar"
+            onPress={handleMoveOn}
             />
           </View>
         </View>
