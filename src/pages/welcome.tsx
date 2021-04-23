@@ -20,7 +20,7 @@ export function Welcome(){
   return(
     <SafeAreaView style={Style.container}>
 		<StatusBar backgroundColor="auto"/>
-      <Text style={Style.title}>
+      		<Text style={Style.title}>
 				Gerencie {'\n'}
 				suas plantas de {'\n'}
 				forma fácil

@@ -8,7 +8,8 @@ import {
     KeyboardAvoidingView,
     Platform,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard,
+    Alert
 } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
@@ -17,10 +18,12 @@ import fonts from '../styles/fonts';
 import { Button } from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+ 
 export function UserIdentification(){
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
-  const [name, setName] = useState<String>();
+  const [name, setName] = useState<string>();
   const navigation = useNavigation();
 
   function handleInputBlur(){
@@ -32,12 +35,16 @@ export function UserIdentification(){
     setIsFocused(true);
   }
 
-  function handleInputChange(value: String){
+  function handleInputChange(value: string){
     setIsFilled(!!value);
     setName(value);
   }
 
-	function handleSubmit(){
+	async function handleSubmit(){
+    if(!name){
+      return Alert.alert('Esqueceu teu nome... 🤭');
+    }
+    await AsyncStorage.setItem('@plantmanager:user', name);
 		navigation.navigate('Confirmation');
 	}
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -11,13 +11,25 @@ import ImgUser from '../assets/Breno.png'
 
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 import fonts from '../styles/fonts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Header(){
+    const [userName, setUsername] = useState<string>();
+
+    useEffect(() => {
+        async function loadStorageUserName() {
+            const user = await AsyncStorage.getItem('@plantmanager:user')
+            setUsername(user || '');
+        }
+
+        loadStorageUserName();
+    },[]);
+
     return(
         <View style={Style.container}>
             <View>
                 <Text style={Style.greeting}>Olá,</Text>
-                <Text style={Style.userName}>Breno</Text>
+                <Text style={Style.userName}>{userName}</Text>
             </View>
             <Image source={ImgUser} style={Style.image}/>
         </View>
