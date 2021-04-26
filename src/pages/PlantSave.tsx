@@ -73,68 +73,73 @@ export function PlantSave(){
     }
     
     return(
-        <View style={Style.container}>
-            <View style={Style.planInfo}>
-                <SvgFromUri
-                    uri={plant.photo}
-                    height={150}
-                    width={150}
-                />
-
-                <Text style={Style.plantName}>
-                    {plant.name}
-                </Text>
-                <Text style={Style.plantAbout}>
-                    {plant.about}
-                </Text>
-            </View>
-
-            <View style={Style.controller}>
-                <View style={Style.tipContainer}>
-                    <Image 
-                        source={waterDrop}
-                        style={Style.tipImage}
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={Style.container}
+        >
+            <View style={Style.container}>
+                <View style={Style.planInfo}>
+                    <SvgFromUri
+                        uri={plant.photo}
+                        height={150}
+                        width={150}
                     />
-                    <Text style={Style.tipText}>
-                        {plant.water_tips}
+
+                    <Text style={Style.plantName}>
+                        {plant.name}
+                    </Text>
+                    <Text style={Style.plantAbout}>
+                        {plant.about}
                     </Text>
                 </View>
 
-                <Text style={Style.alertLabel}>
-                    Escolha o melhor horário para ser lembrado:
-                </Text>
+                <View style={Style.controller}>
+                    <View style={Style.tipContainer}>
+                        <Image 
+                            source={waterDrop}
+                            style={Style.tipImage}
+                        />
+                        <Text style={Style.tipText}>
+                            {plant.water_tips}
+                        </Text>
+                    </View>
 
-                {
-                    showDatePicker &&(
-                    <DateTimePicker 
-                    value={selectedDateTime}
-                    mode="time"
-                    display="spinner"
-                    onChange={handleChangeTime}
-                    
-                />
-                    )}
+                    <Text style={Style.alertLabel}>
+                        Escolha o melhor horário para ser lembrado:
+                    </Text>
 
-                {
-                    Platform.OS === 'android' && (
-                        <TouchableOpacity
-                            style={Style.dateTimePickerButton}
-                            onPress={handleOpenDateTimePickerForAndroid}
-                        >
-                            <Text style={Style.dateTimePickerText}>
-                                {`Mudar ${format(selectedDateTime, 'HH:mm')}`}
-                            </Text>
-                        </TouchableOpacity>
-                    )
-                }
+                    {
+                        showDatePicker &&(
+                        <DateTimePicker 
+                        value={selectedDateTime}
+                        mode="time"
+                        display="spinner"
+                        onChange={handleChangeTime}
+                        
+                    />
+                        )}
 
-                <Button 
-                    title="Cadastrar Planta"
-                    onPress={handleSave}
-                />
+                    {
+                        Platform.OS === 'android' && (
+                            <TouchableOpacity
+                                style={Style.dateTimePickerButton}
+                                onPress={handleOpenDateTimePickerForAndroid}
+                            >
+                                <Text style={Style.dateTimePickerText}>
+                                    {`Mudar ${format(selectedDateTime, 'HH:mm')}`}
+                                </Text>
+                            </TouchableOpacity>
+                        )
+                    }
 
+                    <Button 
+                        title="Cadastrar Planta"
+                        onPress={handleSave}
+                    />
+
+                </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
